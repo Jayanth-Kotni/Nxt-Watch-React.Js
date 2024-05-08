@@ -8,7 +8,7 @@ class LoginForm extends Component {
     username: '',
     password: '',
     isBool: false,
-    errorMessage: '',
+    errMsg: '',
     isShowPassword: false,
   }
 
@@ -27,7 +27,7 @@ class LoginForm extends Component {
   }
 
   loginFailure = errorMsg => {
-    this.setState({isBool: true, errorMessage: errorMsg})
+    this.setState({isBool: true, errMsg: errorMsg})
   }
 
   submitTheForm = async event => {
@@ -59,19 +59,18 @@ class LoginForm extends Component {
   }
 
   render() {
-    const {isBool, errorMessage, username, password, isShowPassword} =
-      this.state
+    const {isBool, errMsg, username, password, isShowPassword} = this.state
     const showing = isShowPassword ? 'text' : 'password'
     const token = Cookies.get('jwt_token')
     if (token !== undefined) {
       return <Redirect to="/" />
     }
     return (
-      <div className="loginDiv">
-        <div className="loginSubDiv">
+      <div className="loginContainer">
+        <div className="subContainer">
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-            className="img1"
+            className="logoImage"
             alt="website logo"
           />
           <form onSubmit={this.submitTheForm}>
@@ -111,7 +110,7 @@ class LoginForm extends Component {
             <button type="submit" className="button112">
               Login
             </button>
-            {isBool && <p className="error">*{errorMessage}</p>}
+            {isBool && <p className="error">*{errMsg}</p>}
           </form>
         </div>
       </div>
